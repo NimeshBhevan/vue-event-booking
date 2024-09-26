@@ -3,12 +3,23 @@
     <h1 class="text-4xl font-medium">Event Booking App</h1>
     <h2 class="text-2xl font-medium">All Events</h2>
     <section class="grid grid-cols-2 gap-8">
-      <EventCard v-for="i in 8" :key="i" title="hello" when="now" description="nothing" @click="console.log('registered')"/>
+      <EventCard
+        v-for="i in 8"
+        :key="i"
+        title="hello"
+        when="now"
+        description="nothing"
+        @register="console.log('registered')"
+      />
     </section>
     <h2 class="text-2xl font-medium">Your Bookings</h2>
+    <section class="grid grid-cols-1 gap-4">
+      <BookingItem v-for="i in 3" :key="i"></BookingItem>
+    </section>
   </main>
 </template>
 
 <script setup>
+import BookingItem from './components/BookingItem.vue';
 import EventCard from './components/EventCard.vue';
 </script>
