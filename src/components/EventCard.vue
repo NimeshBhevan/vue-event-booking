@@ -5,14 +5,14 @@
     <template #footer>
       <p>{{ description }}n</p>
       <div class="flex justify-end">
-        <RegisterButton @click="$emit('register')">Register</RegisterButton>
+        <RoundButton @click="$emit('register')">Register</RoundButton>
       </div>
     </template>
   </SectionCard>
 </template>
 
 <script setup>
-import RegisterButton from './RegisterButton.vue';
+import RoundButton from './RoundButton.vue';
 import SectionCard from './SectionCard.vue';
 
 defineProps({
