@@ -36,5 +36,30 @@
       "location": "Convention Center, Downtown"
     }
   ],
-  "bookings": []
+  "bookings": [
+    {
+      "id": "1727438834944",
+      "evenId": "3",
+      "eventTitle": "PHP Conference 2022",
+      "status": "confirmed"
+    },
+    {
+      "id": "1727438908769",
+      "evenId": "4",
+      "eventTitle": "Rust Conference 2021",
+      "status": "confirmed"
+    },
+    {
+      "id": "1727438979249",
+      "evenId": "2",
+      "eventTitle": "Vue Conference 2023",
+      "status": "confirmed"
+    },
+    {
+      "id": "1727440764739",
+      "evenId": "5",
+      "eventTitle": "Rust Conference 2021",
+      "status": "confirmed"
+    }
+  ]
 }
