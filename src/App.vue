@@ -21,10 +21,16 @@
     <h2 class="text-2xl font-medium">Your Bookings</h2>
     <section class="grid grid-cols-1 gap-4">
       <template v-if="!bookingsLoading">
-        <BookingItem v-for="booking in bookings" :key="booking.id" :title="booking.eventTitle" />
+        <BookingItem
+          v-for="booking in bookings"
+          :key="booking.id"
+          :title="booking.eventTitle"
+          :status="booking.status"
+          @cancel="cancelBooking(booking.id)"
+        />
       </template>
       <template v-else>
-        <LoadingBookingItem v-for="i in 4" :key="i"/>
+        <LoadingBookingItem v-for="i in 4" :key="i" />
       </template>
     </section>
   </main>
@@ -62,18 +68,56 @@ const fetchBookings = async () => {
   }
 };
 
+const findBookingById = (id) => bookings.value.findIndex((b) => b.id === id);
+
 const handleRegistration = async (event) => {
+  if (bookings.value.some((booking) => booking.evenId === event.id)) {
+    alert('You are already registered');
+    return;
+  }
   const newBooking = {
     id: Date.now().toString(),
     evenId: event.id,
-    eventTitle: event.title
+    eventTitle: event.title,
+    status: 'pending'
   };
 
-  await fetch('http://localhost:3001/bookings', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ ...newBooking, status: 'confirmed' })
-  });
+  bookings.value.push(newBooking);
+
+  try {
+    const response = await fetch('http://localhost:3001/bookings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...newBooking, status: 'confirmed' })
+    });
+
+    if (response.ok) {
+      const index = findBookingById(newBooking.id);
+      bookings.value[index] = await response.json();
+    } else {
+      throw new Error('failed to confirm booking');
+    }
+  } catch (error) {
+    console.error('Failed to register for event:', error);
+    bookings.value = bookings.value.filter((b) => b.id !== newBooking.id);
+  }
+};
+
+const cancelBooking = async (bookingId) => {
+  const index = findBookingById(bookingId)
+  const orginalBooking = bookings.value[index]
+  bookings.value.splice(index, 1)
+
+  try {
+    const response = await fetch(`http://localhost:3001/bookings/${bookingId}`, { method: 'DELETE' });
+
+    if (!response.ok) {
+      throw new Error('Booking could not be cancelled');
+    }
+  } catch (error) {
+    console.error('Failed to cancel bookin:', error)
+    bookings.value.splice(index,0,orginalBooking)
+  }
 };
 
 onMounted(() => {
