@@ -23,3 +23,4 @@ defineProps({
 
 defineEmits(['register']);
 </script>
+

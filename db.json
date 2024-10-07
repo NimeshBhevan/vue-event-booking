@@ -4,7 +4,7 @@
       "id": "1",
       "title": "Rails Conference 2024",
       "date": "2024-05-20",
-      "description": "Join us for a day of insightful talks and networking with industry leaders in technology.",
+      "description":"Join us for a day of insightful talks and networking with industry leaders in technology.",
       "location": "Convention Center, Downtown"
     },
     {
@@ -37,17 +37,6 @@
     }
   ],
   "bookings": [
-    {
-      "id": "1728035568257",
-      "evenId": "5",
-      "eventTitle": "Rust Conference 2021",
-      "status": "confirmed"
-    },
-    {
-      "id": "1728036022432",
-      "evenId": "2",
-      "eventTitle": "Vue Conference 2023",
-      "status": "confirmed"
-    }
+   
   ]
 }
